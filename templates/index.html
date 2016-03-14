@@ -12,25 +12,23 @@
 <body class="application">
  
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
    <div class="container-fluid">
        <div class="navbar-header">
            <a class="navbar-brand" href="./">School Donations Dashboard</a>
-           <button class="intro_button" type="button" autofocus onclick="javascript:introJs().start();">Start Tour!</button>
        </div>
    </div>
 </div>
- 
- 
+
+
 <div  id="outer" class="container-fluid">
- 
+
    <div class="row">
- 
+
        <div class="col-sm-8">
            <div class="row">
- 
+
                <!-- Time Chart -->
-               <div class="col-sm-12" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+               <div class="col-sm-12">
                    <div class="chart-wrapper">
                        <div class="chart-title">
                            Number of Donations
@@ -41,9 +39,9 @@
                    </div>
                </div>
                <!-- Time Chart -->
- 
+
                <!-- Resources -->
-               <div class="col-sm-6" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+               <div class="col-sm-6">
                    <div class="chart-wrapper">
                        <div class="chart-title">
                            Resources Type
@@ -54,10 +52,10 @@
                    </div>
                </div>
                <!-- Resources -->
- 
- 
+
+
                <!-- funding Pie -->
-               <div class="col-sm-6" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+               <div class="col-sm-6">
                    <div class="chart-wrapper">
                        <div class="chart-title">
                            Funding Status
@@ -68,12 +66,34 @@
                    </div>
                </div>
                <!-- funding Pie -->
- 
+
+               <!--donations over time-->
+               <div class="col-sm-6">
+                   <div class="chart-wrapper">
+                       <div class="chart-title">
+                           Trend of donations over time
+                       </div>
+                       <div class="chart-stage">
+                           <div id="funding-linechart"></div>
+                       </div>
+                   </div>
+               </div>
+               <!--comparison of donations per US state over time-->
+               <div class="col-sm-6">
+                   <div class="chart-wrapper">
+                       <div class="chart-title">
+                           US States compared
+                       </div>
+                       <div class="chart-stage">
+                           <div id="funding-scatterplot"></div>
+                       </div>
+                   </div>
+               </div>
            </div>
        </div>
-        <div id="us-chart"></div>
+
        <!-- Poverty -->
-       <div class="col-sm-3" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+       <div class="col-sm-3">
            <div class="chart-wrapper">
                <div class="chart-title">
                    Poverty Level
@@ -84,12 +104,12 @@
            </div>
        </div>
        <!-- Poverty -->
- 
- 
- 
- 
+
+
+
+
        <!-- menu select -->
-       <div class="col-sm-6" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+       <div class="col-sm-6">
            <div class="chart-wrapper">
                <div class="chart-title">
                    Donation State
@@ -100,9 +120,9 @@
            </div>
        </div>
        <!-- menu select -->
- 
-<!-- Metric 1 -->
-       <div class="col-sm-2" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+
+       <!-- Metric 1 -->
+       <div class="col-sm-2">
            <div class="chart-wrapper">
                <div class="chart-title">
                    Total Number of Donations
@@ -120,9 +140,9 @@
            </div>
        </div>
        <!-- Metric 1 -->
- 
+
        <!-- Metric 2 -->
-       <div class="col-sm-2" data-step=”1” data-intro=”The description that you want“style=”font-weight: normal” data-position=”right”>
+       <div class="col-sm-2">
            <div class="chart-wrapper">
                <div class="chart-title">
                    Total Donations in USD
@@ -133,13 +153,13 @@
            </div>
        </div>
        <!-- Metric 2 -->
- 
+
    </div>
 </div>
- 
+
 <hr>
 <p class="small text-muted"> Data viz &#9829; from Code Institute</p>
- 
+
 </div>
 <script src="./static/lib/js/jquery.min.js"></script>
 <script src="./static/lib/js/bootstrap.min.js"></script>

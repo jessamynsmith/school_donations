@@ -5,15 +5,12 @@
 #total-donations-nd {
    font-size: 60px;
 }
- 
- 
- 
- 
+
 .dc-chart g.row text {
    fill: black;
    font-size: 12px;
 }
- 
+
 #total-projects {
    background: #33CC99;
    width: 200px;
@@ -26,7 +23,7 @@
    padding-top: 12px;
    padding-bottom: 0px;
 }
- 
+
 #net-donations {
    background: #33CC99;
    width: 200px;
@@ -39,8 +36,7 @@
    padding-top: 12px;
    padding-bottom: 0px;
 }
- 
- 
+
 .dc-select-menu {
    background: #33CC99;
    width: 80%;
@@ -53,5 +49,42 @@
    text-align: center;
    padding-top: 4px;
    padding-bottom: 0px;
- 
+}
+#funding-chart{
+   fill: blue;
+   fill: red;
+   fill: green;
+
+}
+	.line {
+		stroke: blue;
+		fill:none;
+		stroke-width: 3;
+	}
+
+	.axis text {
+		font-size: 10px;
+		font-family: sans-serif;
+	}
+
+	.text-label {
+		font-size: 10px;
+		font-family: sans-serif;
+	}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
 }

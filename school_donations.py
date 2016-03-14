@@ -19,7 +19,7 @@ FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, '
 def index():
    return render_template("index.html")
  
-@app.route("/donorsUS/projects")
+@app.route("/donorsUSA/projects")
 def donor_projects():
    connection = MongoClient (MONGODB_HOST, MONGODB_PORT)
    collection = connection[DBS_NAME][COLLECTION_NAME]
@@ -27,8 +27,8 @@ def donor_projects():
    json_projects = []
    for project in projects:
       json_projects.append (project)
-   json_projects = json.dumps (json_projects)
-   connection.close ()
+   json_projects = json.dumps(json_projects, default=json_util.default)
+   connection.close()
    return json_projects
  
 if __name__ == "__main__":
