@@ -7,29 +7,32 @@ from bson.json_util import dumps
 
 
 app = Flask(__name__)
- 
+
+
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 DBS_NAME = 'donorsUSA'
 COLLECTION_NAME = 'projects'
 FIELDS = {'funding_status': True, 'school_state': True, 'resource_type': True, 'poverty_level': True,
-         'date_posted': True, 'total_donations': True, '_id': False}
- 
+          'date_posted': True, 'total_donations': True, '_id': False}
+
+
 @app.route("/")
 def index():
-   return render_template("index.html")
- 
+    return render_template("index.html")
+
+
 @app.route("/donorsUSA/projects")
-def donor_projects():
-   connection = MongoClient (MONGODB_HOST, MONGODB_PORT)
-   collection = connection[DBS_NAME][COLLECTION_NAME]
-   projects = collection.find (projection=FIELDS, limit=55000)
-   json_projects = []
-   for project in projects:
-      json_projects.append (project)
-   json_projects = json.dumps(json_projects, default=json_util.default)
-   connection.close()
-   return json_projects
- 
+def donor_projects(connection=None):
+    collection = connection[DBS_NAME][COLLECTION_NAME]
+    projects = collection.find(projection=FIELDS, limit=55000)
+    json_projects = []
+    for project in projects:
+        json_projects.append(project)
+    json_projects = json.dumps(json_projects, default=json_util.default)
+    connection.close()
+    return json_projects
+
+
 if __name__ == "__main__":
-   app.run(host='0.0.0.0',port=5000,debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
