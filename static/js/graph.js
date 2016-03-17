@@ -1,18 +1,18 @@
- queue()
-    .defer(d3.json, "/donorsUSA/projects")
-    .await(makeGraphs);
- 
- function makeGraphs(error, projectsJson) {
-    // load projectsJson
- 
+queue()
+  .defer(d3.json, "/donorsUSA/projects")
+  .await(makeGraphs);
 
-   // change string (from CSV) into number format
-    projectsJson.forEach(function(d) {
+
+function makeGraphs(error, projectsJson) {
+  // load projectsJson
+
+
+  // change string (from CSV) into number format
+  projectsJson.forEach(function(d) {
     d.Year = +d.Year;
     d["TotalDonations (USD)"] = +d["TotalDonations (USD)"];
 //    console.log(d);
   });
-
 
 
    //Clean projectsJson projectsJson
@@ -23,10 +23,12 @@
         d["date_posted"].setDate(1);
         d["total_donations"] = +d["total_donations"];
     });
- 
+
+
     //Create a Crossfilter instance
     var ndx = crossfilter(donorsUSAProjects);
- 
+
+
     //Define Dimensions
     var dateDim = ndx.dimension(function (d) {
         return d["date_posted"];
@@ -43,11 +45,13 @@
     var totalDonationsDim = ndx.dimension(function (d) {
         return d["total_donations"];
     });
- 
+
+
     var fundingStatus = ndx.dimension(function (d) {
         return d["funding_status"];
     });
- 
+
+
     //Calculate metrics
     var numProjectsByDate = dateDim.group();
     var numProjectsByResourceType = resourceTypeDim.group();
@@ -57,19 +61,23 @@
         return d["total_donations"];
     });
     var stateGroup = stateDim.group();
- 
+
+
     var all = ndx.groupAll();
      var totalDonations;
      totalDonations = ndx.groupAll().reduceSum(function (d) {
          return d["total_donations"];
      });
- 
+
+
     var max_state = totalDonationsByState.top(1)[0].value;
- 
+
+
     //Define values (to be used in charts)
     var minDate = dateDim.bottom(1)[0]["date_posted"];
     var maxDate = dateDim.top(1)[0]["date_posted"];
- 
+
+
     //Charts
     var timeChart = dc.barChart("#time-chart");
     var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
@@ -77,19 +85,21 @@
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
     var totalDonationsND = dc.numberDisplay("#total-donations-nd");
     var fundingStatusChart = dc.pieChart("#funding-chart");
- 
 
-   var selectField = dc.selectMenu('#menu-select')
+
+    var selectField = dc.selectMenu('#menu-select')
         .dimension(stateDim)
         .group(stateGroup);
- 
+
+
     numberProjectsND
         .formatNumber(d3.format("d"))
         .valueAccessor(function (d) {
             return d;
         })
         .group(all);
- 
+
+
     totalDonationsND
         .formatNumber(d3.format("d"))
         .valueAccessor(function (d) {
@@ -97,8 +107,9 @@
         })
         .group(totalDonations)
         .formatNumber(d3.format(".3s"));
- 
-  timeChart
+
+
+   timeChart
         .width(800)
         .height(200)
         .margins({top: 10, right: 50, bottom: 30, left: 50})
@@ -109,21 +120,24 @@
         .elasticY(true)
         .xAxisLabel("Year")
         .yAxis().ticks(4);
- 
-    resourceTypeChart
+
+
+   resourceTypeChart
         .width(300)
         .height(250)
         .dimension(resourceTypeDim)
         .group(numProjectsByResourceType)
         .xAxis().ticks(4);
- 
+
+
     povertyLevelChart
         .width(300)
         .height(250)
         .dimension(povertyLevelDim)
         .group(numProjectsByPovertyLevel)
         .xAxis().ticks(4);
- 
+
+
     fundingStatusChart
         .height(220)
         .radius(90)
@@ -131,7 +145,7 @@
         .transitionDuration(1500)
         .dimension(fundingStatus)
         .group(numProjectsByFundingStatus);
- 
+
 
     var w, h, margin, y, x;
     w = 400;
@@ -144,28 +158,36 @@
         .attr("width", w)
         .attr("height", h)
 
+
     var g = vis.append("svg:g")
         .attr("transform", "translate(0, 200)");
+
 
     var line = d3.svg.line()
         .x(function(d,i) { return x(i); })
         .y(function(d) { return -1 * y(d); });
- 
 
-    g.append("svg:path").attr("d", line(projectsJson));
- 
+
+    g.append("svg:path")
+        .data(x.ticks())
+        .attr("class","line")
+        .attr("d", line);
+
+
     g.append("svg:line")
         .attr("xAxis", x(0))
         .attr("yAxis", -1 * y(0))
         .attr("xAxis", x(w))
         .attr("yAxis", -1 * y(0))
- 
+
+
     g.append("svg:line")
         .attr("xAxis", x(0))
         .attr("yAxis", -1 * y(0))
         .attr("xAxis", x(0))
         .attr("yAxis", -1 * y(d3.max(projectsJson)));
- 
+
+
     g.selectAll(".xLabel")
         .data(x.ticks(5))
         .enter().append("svg:text")
@@ -174,7 +196,8 @@
         .attr("x", function(d) { return x(d) })
         .attr("y", 0)
         .attr("text-anchor", "middle");
- 
+
+
     g.selectAll(".yLabel")
         .data(y.ticks(4))
         .enter().append("svg:text")
@@ -184,7 +207,8 @@
         .attr("y", function(d) { return -1 * y(d) })
         .attr("text-anchor", "right")
         .attr("dy", 4);
- 
+
+
     g.selectAll(".xTicks")
         .data(x.ticks(5))
         .enter().append("svg:line")
@@ -193,7 +217,8 @@
         .attr("yAxis", -1 * y(0))
         .attr("xAxis", function(d) { return x(d); })
         .attr("yAxis", -1 * y(-0.3));
- 
+
+
     g.selectAll(".yTicks")
         .data(y.ticks(4))
         .enter().append("svg:line")
@@ -202,29 +227,34 @@
         .attr("xAxis", x(-0.3))
         .attr("yAxis", function(d) { return -1 * y(d); })
         .attr("xAxis", x(0));
- 
+
+
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
- 
+
+
  /*
 + * value accessor - returns the value to encode for a given projectsJson object.
   * scale - maps value to a visual display encoding, such as a pixel position.
 + * map function - maps from projectsJson value to display value
   * axis - sets up axis
   */
- 
+
+
     // setup x
     var xValue = function(d) { return d.Year;}, // projectsJson -> value
     xScale = d3.scale.linear().range([0, width]), // value -> display
     xMap = function(d) { return xScale(xValue(d));}, // projectsJson -> display
     xAxis = d3.svg.axis().scale(xScale).orient("bottom");
- 
+
+
      // setup y
     var yValue = function(d) { return d["Total Donations (USD)"];}, // projectsJson -> value
     yScale = d3.scale.linear().range([height, 0]), // value -> display
     yMap = function(d) { return yScale(yValue(d));}, // projectsJson -> display
     yAxis = d3.svg.axis().scale(yScale).orient("left");
+
 
      // add the graph canvas to the body of the webpage
     var svg = d3.select("body").append("svg")
@@ -233,10 +263,11 @@
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
     // don't want dots overlapping axis, so add in buffer to projectsJson domain
     xScale.domain([d3.min(projectsJson, xValue)-1, d3.max(projectsJson, xValue)+1]);
     yScale.domain([d3.min(projectsJson, yValue)-1, d3.max(projectsJson, yValue)+1]);
- 
+
 
     // x-axis
    svg.append("g")
@@ -264,9 +295,14 @@
         .text("TotalDonations (USD)");
 
 
+     // setup fill color
+    var cValue = function(d) { return d.stateDim;},
+    color = d3.scale.category10();
+
+
    // draw dots
    svg.selectAll(".dot")
-        .data(projectsJson)
+        .data(color.domain())
         .enter().append("circle")
         .attr("class", "dot")
         .attr("r", 3.5)
@@ -313,11 +349,6 @@
         .style("text-anchor", "end")
         .text(function(d) { return d;});
 
-
-     // setup fill color
-    var cValue = function(d) { return d.stateDim;},
-    color = d3.scale.category10();
- 
 
      // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
