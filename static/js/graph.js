@@ -167,7 +167,7 @@
         .attr("yAxis", -1 * y(d3.max(projectsJson)));
  
     g.selectAll(".xLabel")
-        .projectsJson(x.ticks(5))
+        .data(x.ticks(5))
         .enter().append("svg:text")
         .attr("class", "xLabel")
         .text(String)
@@ -176,7 +176,7 @@
         .attr("text-anchor", "middle");
  
     g.selectAll(".yLabel")
-        .projectsJson(y.ticks(4))
+        .data(y.ticks(4))
         .enter().append("svg:text")
         .attr("class", "yLabel")
         .text(String)
@@ -186,7 +186,7 @@
         .attr("dy", 4);
  
     g.selectAll(".xTicks")
-        .projectsJson(x.ticks(5))
+        .data(x.ticks(5))
         .enter().append("svg:line")
         .attr("class", "xTicks")
         .attr("xAxis", function(d) { return x(d); })
@@ -195,7 +195,7 @@
         .attr("yAxis", -1 * y(-0.3));
  
     g.selectAll(".yTicks")
-        .projectsJson(y.ticks(4))
+        .data(y.ticks(4))
         .enter().append("svg:line")
         .attr("class", "yTicks")
         .attr("yAxis", function(d) { return -1 * y(d); })
@@ -266,7 +266,7 @@
 
    // draw dots
    svg.selectAll(".dot")
-        .projectsJson(projectsJson)
+        .data(projectsJson)
         .enter().append("circle")
         .attr("class", "dot")
         .attr("r", 3.5)
@@ -291,7 +291,7 @@
 
      // draw legend
     var legend = svg.selectAll(".legend")
-        .projectsJson(color.domain())
+        .data(color.domain())
         .enter().append("g")
         .attr("class", "legend")
         .attr("transform", function(d, i) { return i; });
@@ -319,8 +319,7 @@
     color = d3.scale.category10();
  
 
- 
-    // add the tooltip area to the webpage
+     // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
