@@ -14,55 +14,6 @@
   });
 
 
-   // draw dots
-   svg.selectAll(".dot")
-        .projectsJson(projectsJson)
-        .enter().append("circle")
-        .attr("class", "dot")
-        .attr("r", 3.5)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .style("fill", function(d) { return color(cValue(d));})
-        .on("mouseover", function(d) {
-           tooltip.transition()
-                .duration(200)
-                .style("opacity", .9);
-           tooltip.html(d["Amount"] + "<br/> (" + xValue(d)
-     	        + ", " + yValue(d) + ")")
-                .style("left", (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(d) {
-           tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-       });
-
-
-    // draw legend
-    var legend = svg.selectAll(".legend")
-        .projectsJson(color.domain())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return i; });
-
-
-    // draw legend colored rectangles
-    legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", color);
-
-
-    // draw legend text
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d;});
-
 
    //Clean projectsJson projectsJson
     var donorsUSAProjects = projectsJson;
@@ -275,6 +226,13 @@
     yMap = function(d) { return yScale(yValue(d));}, // projectsJson -> display
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
+     // add the graph canvas to the body of the webpage
+    var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
     // don't want dots overlapping axis, so add in buffer to projectsJson domain
     xScale.domain([d3.min(projectsJson, xValue)-1, d3.max(projectsJson, xValue)+1]);
     yScale.domain([d3.min(projectsJson, yValue)-1, d3.max(projectsJson, yValue)+1]);
@@ -306,22 +264,67 @@
         .text("TotalDonations (USD)");
 
 
+   // draw dots
+   svg.selectAll(".dot")
+        .projectsJson(projectsJson)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 3.5)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .style("fill", function(d) { return color(cValue(d));})
+        .on("mouseover", function(d) {
+           tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+           tooltip.html(d["Amount"] + "<br/> (" + xValue(d)
+     	        + ", " + yValue(d) + ")")
+                .style("left", (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+           tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+       });
+
+
+     // draw legend
+    var legend = svg.selectAll(".legend")
+        .projectsJson(color.domain())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return i; });
+
+
+    // draw legend colored rectangles
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+
+
+    // draw legend text
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d;});
+
+
      // setup fill color
     var cValue = function(d) { return d.stateDim;},
     color = d3.scale.category10();
  
-    // add the graph canvas to the body of the webpage
-    var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
  
     // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
- 
+
 
     dc.renderAll();
  };
