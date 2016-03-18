@@ -169,7 +169,7 @@ function makeGraphs(error, projectsJson) {
 
 
     g.append("svg:path")
-        .data(x.ticks())
+        .data(x.ticks(5))
         .attr("class","line")
         .attr("d", line);
 
@@ -302,9 +302,9 @@ function makeGraphs(error, projectsJson) {
 
    // draw dots
    svg.selectAll(".dot")
-        .data(color.domain())
+        .data(color.domain(projectsJson))
         .enter().append("circle")
-        .attr("class", "dot")
+        .attr("class", "dot", true)
         .attr("r", 3.5)
         .attr("cx", xMap)
         .attr("cy", yMap)
@@ -322,7 +322,7 @@ function makeGraphs(error, projectsJson) {
            tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
-       });
+       });;
 
 
      // draw legend
