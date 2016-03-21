@@ -15,7 +15,7 @@ function makeGraphs(error, projectsJson) {
   });
 
 
-   //Clean projectsJson projectsJson
+   //Clean projectsJson
     var donorsUSAProjects = projectsJson;
     var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
     donorsUSAProjects.forEach(function (d) {
@@ -54,6 +54,7 @@ function makeGraphs(error, projectsJson) {
 
     //Calculate metrics
     var numProjectsByDate = dateDim.group();
+    var numProjectsByState = stateDim.group();
     var numProjectsByResourceType = resourceTypeDim.group();
     var numProjectsByPovertyLevel = povertyLevelDim.group();
     var numProjectsByFundingStatus = fundingStatus.group();
@@ -80,6 +81,7 @@ function makeGraphs(error, projectsJson) {
 
     //Charts
     var timeChart = dc.barChart("#time-chart");
+    var stateChart = dc.barChart("#state-chart");
     var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
     var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
@@ -146,8 +148,22 @@ function makeGraphs(error, projectsJson) {
         .dimension(fundingStatus)
         .group(numProjectsByFundingStatus);
 
+    stateChart
+        .width(800)
+        .height(200)
+        .margins({top: 10, right: 50, bottom: 30, left: 50})
+        .dimension(stateDim)
+        .group(numProjectsByState)
+        .transitionDuration(500)
+        .x(d3.time.scale().domain([minDate, maxDate]))
+        .elasticY(true)
+        .xAxisLabel("State")
+        .yAxisLabel("Number of Projects")
+        .yAxis().ticks(4);
 
-    var w, h, margin, y, x;
+
+
+ /*   var w, h, margin, y, x;
     w = 400;
     h = 200;
     margin = 20;
@@ -239,7 +255,7 @@ function makeGraphs(error, projectsJson) {
   * scale - maps value to a visual display encoding, such as a pixel position.
 + * map function - maps from projectsJson value to display value
   * axis - sets up axis
-  */
+
 
 
     // setup x
@@ -301,8 +317,8 @@ function makeGraphs(error, projectsJson) {
 
 
    // draw dots
-   svg.selectAll(".dot")
-        .data(color.domain(projectsJson))
+    svg.selectAll(".dot")
+        .data(data)
         .enter().append("circle")
         .attr("class", "dot", true)
         .attr("r", 3.5)
@@ -353,8 +369,8 @@ function makeGraphs(error, projectsJson) {
      // add the tooltip area to the webpage
     var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
-    .style("opacity", 0);
+    .style("opacity", 0);*/
 
 
     dc.renderAll();
- };
+ }
