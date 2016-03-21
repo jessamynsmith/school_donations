@@ -160,8 +160,8 @@ function makeGraphs(error, projectsJson) {
         .xAxisLabel("State")
         .yAxisLabel("Number of Donations")
         .yAxis().ticks(4);*/
-        .width(300)
-        .height(250)
+        .width(800)
+        .height(1000)
         .dimension(stateDim)
         .group(numProjectsByState)
         .xAxis().ticks(4);
