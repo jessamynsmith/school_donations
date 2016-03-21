@@ -81,7 +81,7 @@ function makeGraphs(error, projectsJson) {
 
     //Charts
     var timeChart = dc.barChart("#time-chart");
-    var stateChart = dc.barChart("#state-chart");
+    var stateChart = dc.rowChart("#state-chart");
     var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
     var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
     var numberProjectsND = dc.numberDisplay("#number-projects-nd");
@@ -149,17 +149,22 @@ function makeGraphs(error, projectsJson) {
         .group(numProjectsByFundingStatus);
 
     stateChart
-        .width(800)
+        /*.width(800)
         .height(200)
         .margins({top: 10, right: 50, bottom: 30, left: 50})
         .dimension(stateDim)
         .group(numProjectsByState)
         .transitionDuration(500)
-        .x(d3.time.scale().domain([minDate, maxDate]))
+        /*.x(d3.state.scale())
         .elasticY(true)
         .xAxisLabel("State")
-        .yAxisLabel("Number of Projects")
-        .yAxis().ticks(4);
+        .yAxisLabel("Number of Donations")
+        .yAxis().ticks(4);*/
+        .width(300)
+        .height(250)
+        .dimension(stateDim)
+        .group(numProjectsByState)
+        .xAxis().ticks(4);
 
 
 
