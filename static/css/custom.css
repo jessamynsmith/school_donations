@@ -39,7 +39,7 @@
 
 .dc-select-menu {
    background: #33CC99;
-   width: 80%;
+   width: 50%;
    border: none;
    position: relative;
    height: 31px;
@@ -54,37 +54,15 @@
    fill: blue;
    fill: red;
    fill: green;
-
 }
-/*	.line {
-		stroke: blue;
-		fill:none;
-		stroke-width: 3;
-	}
-
-	.axis text {
-		font-size: 10px;
-		font-family: sans-serif;
-	}
-
-	.text-label {
-		font-size: 10px;
-		font-family: sans-serif;
-	}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.col-sm-6 .col-sm-3 .col-sm-12{
+    flex-flow: column;
+    flex-wrap: nowrap;
+    position: relative;
+    padding-top: 12px;
+    padding-bottom: 0px;
 }
-
-.dot {
-  stroke: #000;
+.tooltip{
+   font-weight: normal;
+   data-position:right;
 }
-
-.tooltip {
-  position: absolute;
-  width: 200px;
-  height: 28px;
-  pointer-events: none;
-}*/
