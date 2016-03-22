@@ -37,9 +37,24 @@
    padding-bottom: 0px;
 }
 
+#resource-type-row-chart{
+    flex-flow: column;
+    flex-wrap: nowrap;
+    align-self: right;
+    padding-top: 12px;
+    padding-bottom: 0px;
+}
+#funding-chart{
+    flex-flow: column;
+    flex-wrap: nowrap;
+    align-self: right;
+    padding-top: 12px;
+    padding-bottom: 0px;
+}
+
 .dc-select-menu {
    background: #33CC99;
-   width: 50%;
+   width: 100%;
    border: none;
    position: relative;
    height: 31px;
@@ -50,19 +65,30 @@
    padding-top: 4px;
    padding-bottom: 0px;
 }
-#funding-chart{
-   fill: blue;
-   fill: red;
-   fill: green;
-}
-.col-sm-6 .col-sm-3 .col-sm-12{
-    flex-flow: column;
-    flex-wrap: nowrap;
-    position: relative;
-    padding-top: 12px;
-    padding-bottom: 0px;
-}
 .tooltip{
    font-weight: normal;
    data-position:right;
+}
+.intro_button{
+    margin-top: 38px;
+    float: left;
+    margin-left: 30px;
+    background-color: #1ab394;
+    color: white;
+}
+.chart-wrapper {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+.chart-wrapper .chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 200;
+  padding: 7px 10px 4px;
+}
+.row {
+    padding-left: 20px !important;
 }
