@@ -111,42 +111,46 @@ function makeGraphs(error, projectsJson) {
         .formatNumber(d3.format(".3s"));
 
 
-   timeChart
-        .width(800)
-        .height(200)
-        .margins({top: 10, right: 50, bottom: 30, left: 50})
-        .dimension(dateDim)
-        .group(numProjectsByDate)
-        .transitionDuration(500)
-        .x(d3.time.scale().domain([minDate, maxDate]))
-        .elasticY(true)
-        .xAxisLabel("Year")
-        .yAxis().ticks(4);
+    timeChart
+       .width(800)
+       .height(200)
+       .margins({top: 10, right: 50, bottom: 30, left: 50})
+       .dimension(dateDim)
+       .group(numProjectsByDate)
+       .transitionDuration(500)
+       .x(d3.time.scale().domain([minDate, maxDate]))
+       .elasticY(true)
+       .xAxisLabel("Year")
+       .yAxis().ticks(4);
 
 
-   resourceTypeChart
-        .width(300)
-        .height(250)
-        .dimension(resourceTypeDim)
-        .group(numProjectsByResourceType)
-        .xAxis().ticks(4);
+
+    resourceTypeChart
+       .width(300)
+       .height(250)
+       .dimension(resourceTypeDim)
+       .group(numProjectsByResourceType)
+       .xAxis().ticks(4);
 
 
-    povertyLevelChart
-        .width(300)
-        .height(250)
-        .dimension(povertyLevelDim)
-        .group(numProjectsByPovertyLevel)
-        .xAxis().ticks(4);
+
+   povertyLevelChart
+       .width(300)
+       .height(250)
+       .dimension(povertyLevelDim)
+       .group(numProjectsByPovertyLevel)
+       .xAxis().ticks(4);
 
 
-    fundingStatusChart
-        .height(220)
-        .radius(90)
-        .innerRadius(40)
-        .transitionDuration(1500)
-        .dimension(fundingStatus)
-        .group(numProjectsByFundingStatus);
+
+   fundingStatusChart
+       .height(220)
+       .radius(90)
+       .innerRadius(40)
+       .transitionDuration(1500)
+       .dimension(fundingStatus)
+       .group(numProjectsByFundingStatus);
+
 
     stateChart
         .width(800)
