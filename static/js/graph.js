@@ -112,7 +112,6 @@ function makeGraphs(error, projectsJson) {
 
 
     timeChart
-       .width(800)
        .height(200)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(dateDim)
@@ -126,7 +125,6 @@ function makeGraphs(error, projectsJson) {
 
 
     resourceTypeChart
-       .width(300)
        .height(250)
        .dimension(resourceTypeDim)
        .group(numProjectsByResourceType)
@@ -135,7 +133,6 @@ function makeGraphs(error, projectsJson) {
 
 
    povertyLevelChart
-       .width(300)
        .height(250)
        .dimension(povertyLevelDim)
        .group(numProjectsByPovertyLevel)
@@ -153,7 +150,6 @@ function makeGraphs(error, projectsJson) {
 
 
     stateChart
-        .width(800)
         .height(800)
         .dimension(stateDim)
         .group(numProjectsByState)
